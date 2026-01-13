@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YT Viral Tag</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>YT Viral Tag</h1>
+
+<div class="tools">
+  <button onclick="openTool('tags')">🎬 Generate Video Tags</button>
+  <button onclick="openTool('hashtags')"># Generate Hashtags with Title</button>
+  <button onclick="openTool('description')">📝 Generate Description with Hashtags</button>
+</div>
+
+<div id="inputBox" style="display:none">
+  <input id="title" placeholder="Enter Video Title">
+  <button onclick="generate()">Generate</button>
+</div>
+
+<textarea id="result" placeholder="Result will appear here"></textarea>
+<button onclick="copy()">Copy</button>
+
+<script>
+let tool = "";
+
+function openTool(t){
+  tool = t;
+  document.getElementById("inputBox").style.display="block";
+}
+
+function generate(){
+  fetch("/generate",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      title:document.getElementById("title").value,
+      tool:tool
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    document.getElementById("result").value = data.result;
+  })
+}
+
+function copy(){
+  navigator.clipboard.writeText(document.getElementById("result").value);
+  alert("Copied!");
+}
+</script>
+
+</body>
+</html>
