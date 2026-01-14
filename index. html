@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>XT Viral Tag Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0e0e0e;
+    color:#fff;
+}
+.page{
+    display:none;
+    padding:40px 20px;
+    max-width:900px;
+    margin:auto;
+}
+.page.active{
+    display:block;
+}
+h1{font-size:32px;margin-bottom:10px;}
+h2{font-size:24px;margin:20px 0 10px;}
+p{color:#ccc;}
+button{
+    background:#1a73e8;
+    border:none;
+    color:#fff;
+    padding:12px 25px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+input{
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+    border-radius:6px;
+    border:none;
+    font-size:16px;
+}
+.box{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:10px;
+    margin:15px 0;
+}
+.tag{
+    display:inline-block;
+    background:#222;
+    padding:6px 12px;
+    border-radius:20px;
+    margin:5px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= FIRST PAGE ================= -->
+<div class="page active" id="homePage">
+
+    <h1>XT Viral Tag helps you grow on YouTube</h1>
+    <p>
+        Unlock your full YouTube potential with advanced creator tools designed
+        to optimize your videos and streamline your workflow.
+    </p>
+
+    <button>Login</button>
+
+    <div class="box">
+        <h2>Tag Generator</h2>
+        <p>Create optimized tag for your YouTube videos</p>
+        <input type="text" placeholder="Add your video title or keywords">
+    </div>
+
+    <div class="box">
+        <strong>Based on Actual YouTube Insights</strong>
+        <p>
+            Tags are created using real YouTube search and trend data,
+            helping your videos align with what viewers are searching for.
+        </p>
+    </div>
+
+    <div class="box">
+        <strong>One-Click Tag Copy</strong>
+        <p>
+            Generate your tags instantly and copy them with a single click
+            for better efficiency and performance.
+        </p>
+    </div>
+
+    <button onclick="openGenerator()">Use Tag Generator</button>
+</div>
+
+<!-- ================= SECOND PAGE ================= -->
+<div class="page" id="generatorPage">
+
+    <h1>Generate tags for your YouTube videos</h1>
+    <p>
+        Quickly and easily find tags and improve discoverability with the
+        powerful YT Viral Tags Generator.
+    </p>
+
+    <input id="videoTitle" type="text" placeholder="Enter video title">
+    <button onclick="generateTags()">Generate</button>
+
+    <div class="box" id="tagResult"></div>
+
+    <h2>How to use the Tag Generator</h2>
+    <p><strong>Step 1:</strong> Add your video title</p>
+    <p><strong>Step 2:</strong> View generated tags</p>
+    <p><strong>Step 3:</strong> Copy generated tags</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <p>• What is a YouTube Tag Generator?</p>
+    <p>• How does this tag generator work?</p>
+    <p>• Are these tags safe to use on YouTube?</p>
+    <p>• Do I need technical knowledge?</p>
+    <p>• Can I edit generated tags?</p>
+    <p>• Is this tag generator free to use?</p>
+
+</div>
+
+<script>
+(function(){
+    function showPage(id){
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    window.openGenerator = function(){
+        showPage('generatorPage');
+    }
+
+    window.generateTags = function(){
+        const title = document.getElementById('videoTitle').value.trim();
+        if(!title) return;
+
+        const tags = [
+            title,
+            title + " viral",
+            title + " youtube",
+            title + " shorts",
+            title + " trending"
+        ];
+
+        const box = document.getElementById('tagResult');
+        box.innerHTML = "";
+        tags.forEach(t=>{
+            const span = document.createElement('span');
+            span.className="tag";
+            span.textContent = t;
+            span.onclick = ()=>navigator.clipboard.writeText(t);
+            box.appendChild(span);
+        });
+    }
+})();
+</script>
+
+</body>
+</html>
