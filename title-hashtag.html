@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Title & Hashtag Generator</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#f4f6fb;
+  padding:16px;
+}
+h1{
+  font-size:22px;
+  text-align:center;
+  color:#1a73e8;
+}
+.card{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+input{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-top:10px;
+}
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+  background:#1a73e8;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+}
+.output-box{
+  position:relative;
+  margin-top:12px;
+}
+textarea{
+  width:100%;
+  height:120px;
+  padding:10px;
+  font-size:14px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+.copy{
+  position:absolute;
+  right:10px;
+  top:10px;
+  font-size:20px;
+  cursor:pointer;
+}
+.copy:active{opacity:0.6}
+</style>
+</head>
+
+<body>
+
+<h1>🚀 Title + Hashtag Generator</h1>
+
+<div class="card">
+  <input id="titleInput" placeholder="Video topic लिखें">
+  <button onclick="generateTitle()">Generate</button>
+
+  <div class="output-box">
+    <textarea id="titleOutput" readonly placeholder="Title + Hashtags यहाँ आएंगे"></textarea>
+    <span class="copy" onclick="copyTitle()">📋</span>
+  </div>
+</div>
+
+<script>
+function generateTitle(){
+  const k=document.getElementById("titleInput").value.trim();
+  if(!k){
+    alert("Topic लिखें");
+    return;
+  }
+  const tag=k.replace(/\s+/g,"");
+  const result =
+`🔥 ${k} | Viral Video 🔥
+
+#${tag} #viral #trending #youtube #shorts #reels #india #hindi`;
+  document.getElementById("titleOutput").value=result;
+}
+
+function copyTitle(){
+  const text=document.getElementById("titleOutput");
+  if(!text.value){
+    alert("पहले generate करें");
+    return;
+  }
+  text.select();
+  document.execCommand("copy");
+  alert("Copied ✔️");
+}
+</script>
+
+</body>
+</html>
