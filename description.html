@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral Description Generator</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#fff;margin:0;padding:16px}
+h1{font-size:22px}
+input,textarea,button{width:100%;padding:12px;margin-top:10px;font-size:16px}
+button{background:#16a34a;color:#fff;border:none;border-radius:6px}
+textarea{height:240px}
+.copy-btn{background:#2563eb}
+</style>
+</head>
+<body>
+<h1>Viral Description Generator</h1>
+<input id="keyword" placeholder="Video keyword / title लिखें">
+<button onclick="generateDesc()">Generate Description</button>
+<textarea id="description" placeholder="यहाँ description आएगी"></textarea>
+<button class="copy-btn" onclick="copyDesc()">📋 Copy Description</button>
+
+<script>
+function generateDesc(){
+  const k=document.getElementById("keyword").value.trim();
+  if(!k){alert("Keyword डालिए");return;}
+  const d = `${k} वीडियो इस समय इंटरनेट पर तेजी से वायरल हो रहा है। 
+इस वीडियो में आपको ${k} से जुड़ी पूरी जानकारी आसान भाषा में देखने को मिलेगी।
+
+अगर आप ${k} के बारे में सही और लेटेस्ट जानकारी चाहते हैं, तो यह वीडियो आपके लिए बहुत उपयोगी है। 
+यहाँ आपको viral facts, trending updates और practical tips मिलेंगे।
+
+वीडियो को अंत तक जरूर देखें, पसंद आए तो Like करें, Share करें और चैनल को Subscribe करना न भूलें।
+
+#${k.replace(/\s+/g,"")} #viral #trending #youtube #shorts #reels #india #hindi`;
+  document.getElementById("description").value=d;
+}
+function copyDesc(){
+  const t=document.getElementById("description");
+  if(!t.value){alert("पहले description generate करें");return;}
+  t.select();
+  document.execCommand("copy");
+  alert("Description copied!");
+}
+</script>
+</body>
+</html>
