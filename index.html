@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>YT Viral Tag</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial, sans-serif;
+ background:#0b0b0b;
+ color:#fff;
+}
+.page{display:none;max-width:1000px;margin:auto;padding:50px 20px;}
+.page.active{display:block}
+h1{font-size:38px;margin-bottom:15px;}
+p{color:#ccc;line-height:1.6}
+button{
+ background:#ffffff;
+ color:#000;
+ border:none;
+ padding:14px 36px;
+ font-size:16px;
+ border-radius:25px;
+ cursor:pointer;
+ margin-top:15px;
+}
+input{
+ width:100%;
+ padding:14px;
+ font-size:16px;
+ border-radius:8px;
+ border:none;
+ margin-top:15px;
+ background:#1c1c1c;
+ color:#fff;
+}
+.box{
+ background:#161616;
+ padding:25px;
+ border-radius:14px;
+ margin-top:25px;
+}
+.tag{
+ display:inline-block;
+ background:#262626;
+ padding:8px 14px;
+ margin:6px;
+ border-radius:20px;
+ cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page active" id="home">
+
+<h1>YT Viral Tag helps you grow on YouTube</h1>
+<p>
+Unlock your full YouTube potential with advanced creator tools
+designed to optimize your videos and streamline your workflow.
+</p>
+
+<button>Login</button>
+
+<div class="box">
+<h2>Tag Generator</h2>
+<p>Create optimized tag for your YouTube videos</p>
+<input placeholder="Add your video title or keywords">
+</div>
+
+<div class="box">
+<b>Based on Actual YouTube Insights</b>
+<p>Real YouTube data based tags for better reach.</p>
+</div>
+
+<div class="box">
+<b>One-Click Tag Copy</b>
+<p>Generate and copy tags instantly.</p>
+</div>
+
+<button onclick="openGenerator()">Use Tag Generator</button>
+</div>
+
+<div class="page" id="generator">
+
+<h1>Generate tags for your YouTube videos</h1>
+<p>
+Quickly and easily find tags and improve discoverability
+with the powerful YT Viral Tags Generator
+</p>
+
+<input id="title" placeholder="Enter video title">
+<button onclick="generate()">Generate</button>
+
+<div class="box" id="output"></div>
+
+</div>
+
+<script>
+function openGenerator(){
+ document.getElementById("home").classList.remove("active");
+ document.getElementById("generator").classList.add("active");
+}
+
+function generate(){
+ let t=document.getElementById("title").value.trim();
+ if(!t)return;
+ let tags=[t,t+" viral",t+" shorts",t+" trending",t+" youtube"];
+ let out=document.getElementById("output");
+ out.innerHTML="";
+ tags.forEach(tag=>{
+  let s=document.createElement("span");
+  s.className="tag";
+  s.innerText=tag;
+  s.onclick=()=>navigator.clipboard.writeText(tag);
+  out.appendChild(s);
+ });
+}
+</script>
+
+</body>
+</html>
