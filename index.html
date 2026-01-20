@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YT Viral Tag</title>
+<style>
+body{margin:0;font-family:Arial;background:#f4f6fb}
+.container{max-width:420px;margin:auto;padding:15px}
+h1{text-align:center;color:#1a73e8}
+.card{background:#fff;padding:15px;border-radius:12px;margin-bottom:15px}
+input,textarea{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;margin-top:8px}
+button{width:100%;padding:12px;margin-top:10px;background:#1a73e8;color:#fff;border:none;border-radius:8px;cursor:pointer}
+.output{margin-top:10px;background:#eee;padding:10px;border-radius:8px;white-space:normal;min-height:180px;max-height:180px;overflow-y:auto;font-size:14px;display:flex;flex-wrap:wrap;gap:6px}
+.tag{background:#d9eaff;padding:4px 8px;border-radius:6px;display:flex;align-items:center;gap:6px;font-size:14px}
+.tag span{cursor:pointer;color:red;font-weight:bold}
+.copy-btn{background:#34a853;margin-top:6px}
+.count{font-size:12px;color:#666;text-align:right;margin-top:4px}
+.copied{color:#34a853;font-size:12px;text-align:center;display:none}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>YT Viral Tag</h1>
+
+<!-- TAGS -->
+<div class="card">
+<h3>🎯 Viral Tags Generator</h3>
+<input id="tagInput" placeholder="keyword लिखें">
+<button onclick="genTags()">Generate Tags</button>
+<div class="output" id="tagOut"></div>
+<button class="copy-btn" onclick="copyText('tagOut','copied1')">📋 Copy Tags</button>
+<div class="copied" id="copied1">Copied!</div>
+<div class="count" id="tagCount">0 / 500</div>
+</div>
+
+<!-- TITLE -->
+<div class="card">
+<h3>🚀 Title + Hashtag Generator</h3>
+<input id="titleInput" placeholder="topic लिखें">
+<button onclick="genTitle()">Generate Title</button>
+<div class="output" id="titleOut"></div>
+<button class="copy-btn" onclick="copyText('titleOut','copied2')">📋 Copy Title</button>
+<div class="copied" id="copied2">Copied!</div>
+<div class="count" id="titleCount">0 / 100</div>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="card">
+<h3>📝 Description Generator</h3>
+<textarea id="descInput" placeholder="topic लिखें"></textarea>
+<button onclick="genDesc()">Generate Description</button>
+<div class="output" id="descOut"></div>
+<button class="copy-btn" onclick="copyText('descOut','copied3')">📋 Copy Description</button>
+<div class="copied" id="copied3">Copied!</div>
+<div class="count" id="descCount">0 / 5000</div>
+</div>
+
+</div>
+
+<script>
+function updateCount(textId,countId,max){
+  var t = document.getElementById(textId).innerText || "";
+  document.getElementById(countId).innerText = t.length+" / "+max;
+}
+
+function copyText(id,msg){
+  var container = document.getElementById(id);
+  var tags = Array.from(container.querySelectorAll(".tag")).map(t=>t.firstChild.textContent);
+  navigator.clipboard.writeText(tags.join(", "));
+  var m = document.getElementById(msg);
+  m.style.display="block";
+  setTimeout(()=>{m.style.display="none"},1500);
+}
+
+// ✅ Tag remove on click
+function removeTag(el){
+  el.parentElement.remove();
+}
+
+// ✅ PRO LEVEL TAGS GENERATOR WITH REMOVE ICON
+function genTags(){
+  var k = document.getElementById("tagInput").value.trim().toLowerCase();
+  if(!k){alert("keyword डालें"); return;}
+  var tagsContainer = document.getElementById("tagOut");
+  tagsContainer.innerHTML = ""; // clear previous
+  var tags = [], words = k.split(" ");
+
+  function add(tag){
+    tag = tag.trim();
+    if(tag && !tags.includes(tag) && !tag.includes(k+" "+k)){
+      tags.push(tag);
+    }
+  }
+
+  add(k);
+  add(k+" gameplay"); add(k+" video"); add(k+" shorts"); add(k+" live");
+  add(k+" viral"); add(k+" trending"); add("viral "+k); add("best "+k);
+
+  var core=["free fire","garena free fire","free fire max","freefire","ff gameplay"];
+  core.forEach(c=>{if(!k.includes(c)) add(c+" gameplay");});
+
+  var modes=["1v4","two finger gameplay","pro gameplay","grandmaster","tips","tricks","funny"];
+  modes.forEach(m=>add(k+" "+m));
+
+  var geo=["hindi","india","tamil","brazil"];
+  geo.forEach(g=>add(k+" "+g));
+
+  add("youtube "+k); add("youtube shorts "+k); add("yt shorts "+k);
+  add("#"+k.replaceAll(" ","")); add("#freefire"); add("#gameplay");
+
+  tags = tags.slice(0,35);
+
+  // Render each tag with ❌
+  tags.forEach(t=>{
+    var span = document.createElement("div");
+    span.className="tag";
+    span.innerHTML = t+' <span onclick="removeTag(this)">❌</span>';
+    tagsContainer.appendChild(span);
+  });
+
+  updateCount("tagOut","tagCount",500);
+}
+
+// Title and Description remain same
+function genTitle(){
+  var k=document.getElementById("titleInput").value.trim();
+  if(!k){alert("topic डालें");return;}
+  document.getElementById("titleOut").innerText=k+" Viral Video\n#"+k.split(" ").join("")+" #viral #youtube #shorts #trending";
+  updateCount("titleOut","titleCount",100);
+}
+function genDesc(){
+  var k=document.getElementById("descInput").value.trim();
+  if(!k){alert("topic डालें");return;}
+  document.getElementById("descOut").innerText=k+" वीडियो इस समय इंटरनेट पर तेजी से वायरल हो रहा है। इस वीडियो में आपको पूरी जानकारी मिलेगी। वीडियो को अंत तक देखें।\n#"+k.split(" ").join("")+" #viral #youtube #shorts";
+  updateCount("descOut","descCount",5000);
+}
+</script>
+</body>
+</html>
