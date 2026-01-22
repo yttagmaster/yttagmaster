@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YT Viral Tag</title>
+<style>
+body{font-family:Arial;background:#f4f6fb;padding:20px}
+input,button{padding:10px;width:100%;margin:5px 0}
+.tag{display:inline-block;background:#e3f2fd;padding:6px 10px;
+margin:4px;border-radius:6px}
+.tag span{color:red;cursor:pointer;margin-left:6px}
+</style>
+</head>
+<body>
+
+<h2>YT Viral Tag</h2>
+<input id="q" placeholder="Enter keyword">
+<button onclick="generate()">Generate</button>
+
+<div id="out"></div>
+<button onclick="copyTags()">Copy</button>
+
+<script>
+let finalTags = []
+
+function generate(){
+  let q = document.getElementById("q").value
+  fetch("/api?q="+encodeURIComponent(q))
+    .then(r=>r.json())
+    .then(d=>{
+      finalTags = d.final
+      let html = ""
+      finalTags.forEach((t,i)=>{
+        html += `<div class="tag">${t}<span onclick="removeTag(${i})">✖</span></div>`
+      })
+      document.getElementById("out").innerHTML = html
+    })
+}
+
+function removeTag(i){
+  finalTags.splice(i,1)
+  generateHTML()
+}
+
+function generateHTML(){
+  let html = ""
+  finalTags.forEach((t,i)=>{
+    html += `<div class="tag">${t}<span onclick="removeTag(${i})">✖</span></div>`
+  })
+  document.getElementById("out").innerHTML = html
+}
+
+function copyTags(){
+  let text = finalTags.join(", ")
+  navigator.clipboard.writeText(text)
+  alert("Copied!")
+}
+</script>
+
+</body>
+</html>
